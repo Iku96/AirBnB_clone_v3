@@ -58,6 +58,19 @@ class FileStorage:
         except:
             pass
 
+    def get(self, cls, id):
+        """Retrieves an object from the file storage"""
+        if cls in classes.values():
+            key = cls.__name__ + '.' + id
+            return self.__objects.get(key, None)
+        return None
+
+    def count(self, cls=None):
+        """Counts the number of objs in storage"""
+        if cls:
+            return len([obj for obj in self.__objects.values() if isinstance(obj, cls)])
+        return len(self.__objects)
+               
     def delete(self, obj=None):
         """delete obj from __objects if it’s inside"""
         if obj is not None:
